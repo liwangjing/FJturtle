@@ -93,6 +93,11 @@ public class AndroidGraphics implements Graphics {
     }
 
     @Override
+    public void drawCircle() {
+
+    }
+
+    @Override
     public void drawImage(Image image, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight) {
         Rect srcRect = new Rect();
         Rect dstRect = new Rect();
