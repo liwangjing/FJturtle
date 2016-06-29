@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.androidgame.jingfu"
     android:versionCode="1"
     android:versionName="Apple"
     >
@@ -17,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".turtlegame.GameActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/app_name"
             android:screenOrientation="landscape">
