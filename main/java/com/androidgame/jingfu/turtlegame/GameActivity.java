@@ -1,4 +1,4 @@
-package com.androidgame.jingfu.fjturtle.turtlegame;
+package com.androidgame.jingfu.turtlegame;
 
 import android.util.Log;
 
