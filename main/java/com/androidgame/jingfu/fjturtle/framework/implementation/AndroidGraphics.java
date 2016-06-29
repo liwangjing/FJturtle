@@ -6,6 +6,7 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
@@ -155,4 +156,5 @@ public class AndroidGraphics implements Graphics {
         dstRect.bottom = y + height;
         canvas.drawBitmap(((AndroidImage)image).bitmap, srcRect, dstRect, null);
     }
+
 }

@@ -1,17 +1,17 @@
 package com.androidgame.jingfu.turtlegame;
 
-
 import com.androidgame.jingfu.fjturtle.framework.Game;
 import com.androidgame.jingfu.fjturtle.framework.Graphics;
+import com.androidgame.jingfu.fjturtle.framework.Image;
 import com.androidgame.jingfu.fjturtle.framework.Screen;
-import com.androidgame.jingfu.fjturtle.framework.implementation.AndroidImage;
+import com.androidgame.jingfu.fjturtle.framework.implementation.AndroidGame;
 
 /**
  * Created by handsomemark on 6/28/16.
  */
 public class FJAdScreen extends Screen {
 
-    private static final float DISPLAYDURATION = 100; // 2.00 sec
+    private static final float DISPLAYDURATION = 150; // duration of ad screen is 1.50 sec
 
     private float lastingTime = 0;
 
@@ -19,7 +19,7 @@ public class FJAdScreen extends Screen {
     public FJAdScreen(Game game) {
         super(game);
         Graphics g = game.getGraphics();
-        Assets.fjad = g.newImage("fjad.jpg", Graphics.ImageFormat.ARGB8888);
+        Assets.fjad = g.newImage("fjad.png", Graphics.ImageFormat.ARGB8888);
     }
 
     @Override
@@ -36,8 +36,8 @@ public class FJAdScreen extends Screen {
     @Override
     public void paint(float deltaTime) {
         Graphics g = game.getGraphics();
-        g.drawImage(Assets.fjad,0,0);
-//        g.drawScaledImage(Assets.fjad, 0 , 0 , GameActivity.PORTRAITHEIGHT, GameActivity.PORTRAITWIDTH, 0, 0, Assets.fjad.getWidth(), Assets.fjad.getHeight());
+        Image image = Assets.fjad;
+        g.drawImage(image,(AndroidGame.PORTRAITHEIGHT-image.getWidth())/2,(AndroidGame.PORTRAITWIDTH-image.getHeight())/2);
     }
 
     @Override

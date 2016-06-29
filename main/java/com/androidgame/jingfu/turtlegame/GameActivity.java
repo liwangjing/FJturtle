@@ -1,6 +1,8 @@
 package com.androidgame.jingfu.turtlegame;
 
 
+import android.util.Log;
+
 import com.androidgame.jingfu.fjturtle.framework.Screen;
 import com.androidgame.jingfu.fjturtle.framework.implementation.AndroidGame;
 
