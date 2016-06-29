@@ -20,6 +20,8 @@ import com.androidgame.jingfu.fjturtle.framework.Screen;
  * Created by handsomemark on 6/14/16.
  */
 public abstract class AndroidGame extends Activity implements Game {
+    public static final int PORTRAITWIDTH = 720;
+    public static final int PORTRAITHEIGHT = 1280;
     AndroidFastRenderView renderView;
     Graphics graphics;
     Audio audio;
@@ -32,7 +34,7 @@ public abstract class AndroidGame extends Activity implements Game {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE); //Window.FEATURE_NO_TITLE:flag for 'no title' feature, turn off the title at the top of screen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         /*
         *  requestWindowFeature() = getWindow.requestFeature();
@@ -46,8 +48,8 @@ public abstract class AndroidGame extends Activity implements Game {
         * getConfiguration(): returns the current configuration that is effect for this resource object.
         * orientation is the orientation of screen, in this case, it is set to be landscape.ORIENTATION_PORTRAIT / ORIENTATION_LANDSCAPE
         * */
-        int frameBufferWidth = isPortrait? 720 : 1280;
-        int frameBufferHeight = isPortrait? 1280 : 720;
+        int frameBufferWidth = isPortrait? PORTRAITWIDTH : PORTRAITHEIGHT;
+        int frameBufferHeight = isPortrait? PORTRAITHEIGHT : PORTRAITWIDTH;
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth, frameBufferHeight, Config.RGB_565);
 
         float scaleX = (float) frameBufferWidth / getResources().getDisplayMetrics().widthPixels;
