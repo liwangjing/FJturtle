@@ -48,8 +48,8 @@ public abstract class AndroidGame extends Activity implements Game {
         * getConfiguration(): returns the current configuration that is effect for this resource object.
         * orientation is the orientation of screen, in this case, it is set to be landscape.ORIENTATION_PORTRAIT / ORIENTATION_LANDSCAPE
         * */
-        int frameBufferWidth = isPortrait? PORTRAITWIDTH : PORTRAITHEIGHT;
-        int frameBufferHeight = isPortrait? PORTRAITHEIGHT : PORTRAITWIDTH;
+        int frameBufferWidth = getResources().getDisplayMetrics().widthPixels;
+        int frameBufferHeight = getResources().getDisplayMetrics().heightPixels;
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth, frameBufferHeight, Config.RGB_565);
 
         float scaleX = (float) frameBufferWidth / getResources().getDisplayMetrics().widthPixels;
