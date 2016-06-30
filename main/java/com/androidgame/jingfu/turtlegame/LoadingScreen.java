@@ -11,6 +11,10 @@ import java.util.List;
  * Created by handsomemark on 6/28/16.
  */
 public class LoadingScreen extends Screen {
+
+    private float lastingTime = 0;
+    private static final float DISPLAYDURATION = 150; // duration of ad screen is 1.50 sec
+
     public LoadingScreen(Game game) {
         super(game);
         Assets.click = game.getAudio().createSound("click.wav");
@@ -18,7 +22,13 @@ public class LoadingScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
-
+        lastingTime += deltaTime;
+        if (lastingTime > DISPLAYDURATION) {
+             /*if current lasting time of this ad. screen is larger than the prefixed duration, than
+             change the screen to loading screen*/
+            game.setScreen(new GameScreen(game));
+            lastingTime = 0;
+        }
     }
 
     @Override

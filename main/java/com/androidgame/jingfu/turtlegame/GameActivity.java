@@ -1,6 +1,7 @@
 package com.androidgame.jingfu.turtlegame;
 
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.androidgame.jingfu.fjturtle.framework.Screen;
@@ -13,6 +14,12 @@ import com.androidgame.jingfu.fjturtle.framework.implementation.AndroidGame;
 public class GameActivity extends AndroidGame {
 
     boolean firstTimeCreate = true;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PropertyManager.getInstance(this); // new a property manager for the application
+    }
 
     @Override
     public Screen getInitScreen() {

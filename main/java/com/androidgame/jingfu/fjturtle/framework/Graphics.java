@@ -1,6 +1,7 @@
 package com.androidgame.jingfu.fjturtle.framework;
 
 import android.graphics.Paint;
+import android.graphics.Path;
 
 /**
  * Created by handsomemark on 6/14/16.
@@ -17,7 +18,9 @@ public interface Graphics {
 
     public void drawRect(int x, int y, int width, int height, int color);
 
-    public void drawCircle();
+    public void drawCircle(int cx, int cy, int radius, Paint paint);
+
+    public void drawPath(Path path, Paint p);
 
     public void drawImage(Image image, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight);
 
