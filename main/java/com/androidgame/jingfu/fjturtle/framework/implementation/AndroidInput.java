@@ -29,6 +29,11 @@ public class AndroidInput implements Input {
     } // template pattern. same function name is for easy recognization.
 
     @Override
+    public int getPointerCounter(){
+        return touchHandler.getPointerCounter();
+    }
+
+    @Override
     public int getTouchX(int pointer) {
         return touchHandler.getTouchX(pointer);
     }

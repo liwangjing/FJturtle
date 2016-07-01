@@ -18,6 +18,8 @@ public interface Input { //inout的内容会有很多，不仅限于touch，从�
         public int pointer;
     }
 
+    public int getPointerCounter();
+
     public boolean isTouchDown(int pointer);
 
     public int getTouchX(int pointer);

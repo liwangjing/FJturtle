@@ -40,6 +40,13 @@ public class SingleTouchHandler implements TouchHandler {
     }
 
     @Override
+    public int getPointerCounter() {
+        if (isTouched)
+            return 1;
+        return 0;
+    }
+
+    @Override
     public boolean isTouchDown(int pointer) {
         synchronized (this) {
             if (pointer == 0) //pointer 对应的是触碰手指在堆栈中的index，永远认为最近一个发生动作的手指是有效手指，即对应index为0.

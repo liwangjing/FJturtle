@@ -8,6 +8,7 @@ import com.androidgame.jingfu.fjturtle.framework.Image;
 import com.androidgame.jingfu.fjturtle.framework.Input;
 import com.androidgame.jingfu.fjturtle.framework.Screen;
 import com.androidgame.jingfu.fjturtle.framework.implementation.AndroidGame;
+import com.androidgame.jingfu.fjturtle.framework.implementation.MultiTouchHandler;
 
 import java.util.List;
 
@@ -18,18 +19,21 @@ public class MenuScreen extends Screen {
 
     public MenuScreen (Game game){
         super(game);
+        game.getInput().getTouchEvents();//clear touch events
     }
     @Override
     public void update(float deltaTime) {
-        List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
-        int len = touchEvents.size();
-        for (int i = 0; i < len; i++) {
-            Input.TouchEvent event = touchEvents.get(i);
-            if (event.type == Input.TouchEvent.TOUCH_UP && inBounds(event, ((AndroidGame)game).landscapeWidth*104/Assets.menu.getWidth(), ((AndroidGame)game).landscapeHeight*680/Assets.menu.getHeight(),
-                    ((AndroidGame)game).landscapeWidth*468/Assets.menu.getWidth(), ((AndroidGame)game).landscapeHeight*212/Assets.menu.getHeight() )) {
-                // once find the user has lifted his finger from the play button area, start game screen
-                game.setScreen(new GameScreen(game));
-                break;// since the touchEvents are cleared again in setScreen(), so don't traverse the old events list. Otherwise, the program will break down.
+        if (game.getInput().getPointerCounter() == 0) {
+            List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
+            int len = touchEvents.size();
+            for (int i = 0; i < len; i++) {
+                Input.TouchEvent event = touchEvents.get(i);
+                if (event.type == Input.TouchEvent.TOUCH_UP && inBounds(event, ((AndroidGame) game).landscapeWidth * 104 / Assets.menu.getWidth(), ((AndroidGame) game).landscapeHeight * 680 / Assets.menu.getHeight(),
+                        ((AndroidGame) game).landscapeWidth * 468 / Assets.menu.getWidth(), ((AndroidGame) game).landscapeHeight * 212 / Assets.menu.getHeight()) ) {
+                    // once find the user has lifted his finger from the play button area, start game screen
+                    game.setScreen(new GameScreen(game));
+                    break;// since the touchEvents are cleared again in setScreen(), so don't traverse the old events list. Otherwise, the program will break down.
+                }
             }
         }
     }

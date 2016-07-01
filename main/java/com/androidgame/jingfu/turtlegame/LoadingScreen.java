@@ -31,6 +31,7 @@ public class LoadingScreen extends Screen {
 
     public LoadingScreen(Game game) {
         super(game);
+        // load assets
         Assets.click = game.getAudio().createSound("click.wav");
         Assets.giggle = game.getAudio().createSound("giggle.mp3");
         Assets.eat = game.getAudio().createSound("eat.mp3");
