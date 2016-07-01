@@ -19,6 +19,7 @@ public class MenuScreen extends Screen {
     @Override
     public void paint(float deltaTime) {
 
+        
     }
 
     @Override
