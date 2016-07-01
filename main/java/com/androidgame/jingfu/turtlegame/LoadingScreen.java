@@ -1,5 +1,7 @@
 package com.androidgame.jingfu.turtlegame;
 
+import android.util.Log;
+
 import com.androidgame.jingfu.fjturtle.framework.Game;
 import com.androidgame.jingfu.fjturtle.framework.Graphics;
 import com.androidgame.jingfu.fjturtle.framework.Input;
@@ -27,6 +29,8 @@ public class LoadingScreen extends Screen {
     public LoadingScreen(Game game) {
         super(game);
         Assets.click = game.getAudio().createSound("click.wav");
+        Assets.giggle = game.getAudio().createSound("giggle.mp3");
+        Assets.eat = game.getAudio().createSound("eat.mp3");
         Graphics g = game.getGraphics();
         Assets.fruit = g.newImage("fruit.png", Graphics.ImageFormat.RGB565);
         Assets.snake = g.newImage("snake.png", Graphics.ImageFormat.RGB565);
@@ -42,27 +46,37 @@ public class LoadingScreen extends Screen {
 
         lastingTime += deltaTime;
         if (count < 4) {
-            if (lastingTime > DISPLAYDURATION-10) {
+            if (lastingTime > DISPLAYDURATION-20) {
                 snakeX = AndroidGame.PORTRAITHEIGHT/2-offsetX*count+5;
                 snakeY = fruitY;
-                count++;
                 lastingTime = 0;
                 hasUpdated = true;
+                if (count != 3){
+                    Assets.click.play(0.5f);
+                } else {
+                    Assets.eat.play(0.5f);
+                }
+                count++;
             }
         } else if (count == 4) {
-            if (lastingTime > DISPLAYDURATION-20) {
+            if (lastingTime > DISPLAYDURATION-10) {
                 snakeX = fruitX;
                 count++;
                 lastingTime = 0;
                 hasUpdated = true;
+
             }
         }
         else if (count > 4){
             if (lastingTime > DISPLAYDURATION/7) {
+                if (count == 5) {
+                    Assets.giggle.play(0.5f);
+                }
                 snakeX = fruitX - (offsetX/2) * (count-3);
                 count++;
                 lastingTime = 0;
                 hasUpdated = true;
+
             }
         }
 
