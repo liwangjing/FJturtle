@@ -20,8 +20,8 @@ import com.androidgame.jingfu.fjturtle.framework.Screen;
  * Created by handsomemark on 6/14/16.
  */
 public abstract class AndroidGame extends Activity implements Game {
-    public static final int PORTRAITWIDTH = 720;
-    public static final int PORTRAITHEIGHT = 1280;
+    public int landscapeWidth ;
+    public int landscapeHeight ;
     AndroidFastRenderView renderView;
     Graphics graphics;
     Audio audio;
@@ -48,8 +48,8 @@ public abstract class AndroidGame extends Activity implements Game {
         * getConfiguration(): returns the current configuration that is effect for this resource object.
         * orientation is the orientation of screen, in this case, it is set to be landscape.ORIENTATION_PORTRAIT / ORIENTATION_LANDSCAPE
         * */
-        int frameBufferWidth = getResources().getDisplayMetrics().widthPixels;
-        int frameBufferHeight = getResources().getDisplayMetrics().heightPixels;
+        int frameBufferWidth = landscapeWidth = getResources().getDisplayMetrics().widthPixels;
+        int frameBufferHeight = landscapeHeight = getResources().getDisplayMetrics().heightPixels;
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth, frameBufferHeight, Config.RGB_565);
 
         float scaleX = (float) frameBufferWidth / getResources().getDisplayMetrics().widthPixels;
