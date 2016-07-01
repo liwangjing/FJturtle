@@ -11,6 +11,9 @@ import java.util.List;
  * Created by handsomemark on 6/15/16.
  */
 public interface TouchHandler extends View.OnTouchListener{
+
+    public int getPointerCounter();
+
     public boolean isTouchDown(int pointer);
 
     public int getTouchX(int pointer);

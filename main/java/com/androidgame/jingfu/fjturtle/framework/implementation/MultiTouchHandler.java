@@ -1,5 +1,6 @@
 package com.androidgame.jingfu.fjturtle.framework.implementation;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.support.v4.view.MotionEventCompat;
@@ -26,6 +27,7 @@ public class MultiTouchHandler implements TouchHandler {
     List<TouchEvent> touchEventsBuffer = new ArrayList<TouchEvent>();
     float scaleX;
     float scaleY;
+    int pointerCounter = -1;
 
     public MultiTouchHandler(View view, float scaleX, float scaleY) {
         Pool.PoolObjectFactory<TouchEvent> factory = new Pool.PoolObjectFactory<TouchEvent>() {
@@ -73,6 +75,13 @@ public class MultiTouchHandler implements TouchHandler {
         }
     }
 
+    @Override
+    public int getPointerCounter() {
+        synchronized (this) {
+            return pointerCounter;
+        }
+    }
+
     private int getIndex(int pointerId) {
         synchronized (this) {
             for (int i = 0; i < MAX_TOUCHPOINTS; i++) {
@@ -102,7 +111,7 @@ public class MultiTouchHandler implements TouchHandler {
         synchronized (this) {
             int action = MotionEventCompat.getActionMasked(event); //return the event triggered this method.
             int pointerIndex = MotionEventCompat.getActionIndex(event); // return the index of the pointer that triggered this event.
-            int pointerCount = event.getPointerCount(); // return the number of pointers on the screen.
+            int pointerCount = pointerCounter = event.getPointerCount(); // return the number of pointers on the screen.
             TouchEvent touchEvent;
             for (int i = 0; i < MAX_TOUCHPOINTS; i++) {
                 if (i >= pointerCount) {
@@ -142,6 +151,8 @@ public class MultiTouchHandler implements TouchHandler {
                             isTouched[i] = false;
                             id[i] = -1;
                             touchEventsBuffer.add(touchEvent);
+                            if (pointerCounter == 1)
+                                pointerCounter = 0;
                             break;
                         // pointer moves
                         case MotionEvent.ACTION_MOVE:
