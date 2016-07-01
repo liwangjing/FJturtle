@@ -36,7 +36,7 @@ public class FJAdScreen extends Screen {
     public void paint(float deltaTime) {
         Graphics g = game.getGraphics();
         Image image = Assets.fjad;
-        g.drawImage(image,(AndroidGame.PORTRAITHEIGHT-image.getWidth())/2,(AndroidGame.PORTRAITWIDTH-image.getHeight())/2);
+        g.drawImage(image,(((AndroidGame)game).landscapeWidth-image.getWidth())/2,(((AndroidGame)game).landscapeHeight-image.getHeight())/2);
     }
 
     @Override
