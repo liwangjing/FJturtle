@@ -14,7 +14,7 @@ import java.util.List;
  * Created by handsomemark on 6/28/16.
  */
 public class LoadingScreen extends Screen {
-<<<<<<< HEAD
+
     private int count = 0;
     private float lastingTime = 0;
     private static final float DISPLAYDURATION = 40; //0.4s
@@ -25,10 +25,9 @@ public class LoadingScreen extends Screen {
     private int fruitY ;
     private int snakeX ;
     private int snakeY ;
+    private int screenWidth;
+    private int screenHeight;
     private boolean hasUpdated = false;
-=======
-
->>>>>>> origin/master
 
     public LoadingScreen(Game game) {
         super(game);
@@ -38,21 +37,23 @@ public class LoadingScreen extends Screen {
         Graphics g = game.getGraphics();
         Assets.fruit = g.newImage("fruit.png", Graphics.ImageFormat.RGB565);
         Assets.snake = g.newImage("snake.png", Graphics.ImageFormat.RGB565);
+        Assets.menu = g.newImage("menu.png",Graphics.ImageFormat.ARGB8888);
         this.fruitW = Assets.fruit.getWidth(); //90
         this.fruitH = Assets.fruit.getHeight(); //90
         this.offsetX = fruitW ; //90
-        this.fruitX = AndroidGame.PORTRAITHEIGHT/2 - 3*offsetX;//370=640-270
-        this.fruitY = AndroidGame.PORTRAITWIDTH/2 - offsetX/2;//315
+        this.screenWidth = ((AndroidGame)game).landscapeWidth;
+        this.screenHeight = ((AndroidGame)game).landscapeHeight;
+        this.fruitX = screenWidth/2 - 3*offsetX;//370=640-270
+        this.fruitY = screenHeight/2 - offsetX/2;//315
     }
 
     @Override
     public void update(float deltaTime) {
-<<<<<<< HEAD
 
         lastingTime += deltaTime;
         if (count < 4) {
             if (lastingTime > DISPLAYDURATION-20) {
-                snakeX = AndroidGame.PORTRAITHEIGHT/2-offsetX*count+5;
+                snakeX = screenWidth/2-offsetX*count+5;
                 snakeY = fruitY;
                 lastingTime = 0;
                 hasUpdated = true;
@@ -85,10 +86,8 @@ public class LoadingScreen extends Screen {
             }
         }
 
-        if( snakeX < -200) {
+        if( snakeX < -320) {
             game.setScreen(new MenuScreen(game));
-=======
->>>>>>> origin/master
         }
     }
 
