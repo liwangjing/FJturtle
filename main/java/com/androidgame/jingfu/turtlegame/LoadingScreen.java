@@ -14,9 +14,10 @@ import java.util.List;
  * Created by handsomemark on 6/28/16.
  */
 public class LoadingScreen extends Screen {
+<<<<<<< HEAD
     private int count = 0;
-    private int lastingTime = 0;
-    private static final float DISPLAYDURATION = 40; //1s
+    private float lastingTime = 0;
+    private static final float DISPLAYDURATION = 40; //0.4s
     private int fruitW;//90
     private int fruitH;//90
     private int offsetX; //90
@@ -25,6 +26,9 @@ public class LoadingScreen extends Screen {
     private int snakeX ;
     private int snakeY ;
     private boolean hasUpdated = false;
+=======
+
+>>>>>>> origin/master
 
     public LoadingScreen(Game game) {
         super(game);
@@ -43,6 +47,7 @@ public class LoadingScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
+<<<<<<< HEAD
 
         lastingTime += deltaTime;
         if (count < 4) {
@@ -82,6 +87,8 @@ public class LoadingScreen extends Screen {
 
         if( snakeX < -200) {
             game.setScreen(new MenuScreen(game));
+=======
+>>>>>>> origin/master
         }
     }
 

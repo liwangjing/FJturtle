@@ -15,7 +15,6 @@ public class FJAdScreen extends Screen {
 
     private float lastingTime = 0;
 
-
     public FJAdScreen(Game game) {
         super(game);
         Graphics g = game.getGraphics();

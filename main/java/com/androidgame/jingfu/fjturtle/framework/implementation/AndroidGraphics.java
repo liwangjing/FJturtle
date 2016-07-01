@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
 import android.graphics.Rect;
 
 
@@ -94,8 +95,13 @@ public class AndroidGraphics implements Graphics {
     }
 
     @Override
-    public void drawCircle() {
+    public void drawCircle(int cx, int cy, int radius, Paint paint) {
+        canvas.drawCircle( cx, cy, radius, paint);
+    }
 
+    @Override
+    public void drawPath(Path path, Paint p) {
+        canvas.drawPath(path,p);
     }
 
     @Override
