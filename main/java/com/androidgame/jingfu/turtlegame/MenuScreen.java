@@ -34,6 +34,11 @@ public class MenuScreen extends Screen {
                     game.setScreen(new GameScreen(game));
                     break;// since the touchEvents are cleared again in setScreen(), so don't traverse the old events list. Otherwise, the program will break down.
                 }
+                else if (event.type == Input.TouchEvent.TOUCH_UP && inBounds(event, ((AndroidGame) game).landscapeWidth * 108 / Assets.menu.getWidth(), ((AndroidGame) game).landscapeHeight * 450 / Assets.menu.getHeight(),
+                        ((AndroidGame) game).landscapeWidth * 460 / Assets.menu.getWidth(), ((AndroidGame) game).landscapeHeight * 170 / Assets.menu.getHeight())){
+                    game.setScreen(new RankScreen(game));
+                    break;
+                }
             }
         }
     }
@@ -68,6 +73,6 @@ public class MenuScreen extends Screen {
 
     @Override
     public void backButton() {
-
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }

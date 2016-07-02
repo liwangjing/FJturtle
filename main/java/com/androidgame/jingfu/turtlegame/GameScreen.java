@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
 
+import com.androidgame.jingfu.fjturtle.framework.FileIO;
 import com.androidgame.jingfu.fjturtle.framework.Game;
 import com.androidgame.jingfu.fjturtle.framework.Graphics;
 import com.androidgame.jingfu.fjturtle.framework.Input.TouchEvent;
@@ -212,6 +213,8 @@ public class GameScreen extends Screen {
     private void updateGameOver(float deltaTime){
         lastTime = lastTime + deltaTime;
         if (lastTime > 50) {
+            int score = mySnake.getNumOfFruits();
+            saveScore(score); //save the score to rank.
         nullify();
         lastTime = 0;
         game.setScreen(new MenuScreen(game));
@@ -256,8 +259,6 @@ public class GameScreen extends Screen {
 
     private boolean inBounds(TouchEvent event, int x, int y, int width,
                              int height) {
-        double xx = ((double)(event.x))/((AndroidGame) game).landscapeWidth;
-        double yy = ((double)(event.y))/((AndroidGame) game).landscapeHeight;
         if (event.x > x && event.x < x + width - 1 && event.y > y
                 && event.y < y + height - 1)
             return true;
@@ -278,6 +279,36 @@ public class GameScreen extends Screen {
             state = GameState.RUNNING;
         }
     }
+
+    private void saveScore(int score){
+        FileIO fileIO = game.getFileIO();
+        int first = fileIO.getIntegerFromPref("1st", -1);
+        int second = fileIO.getIntegerFromPref("2nd", -2);
+        int third = fileIO.getIntegerFromPref("3rd", -3);
+
+        if (score >= second){
+            if (score >= first ){ //first has value and score higher than first
+                fileIO.putIntegerToPref("1st", score);
+                if (first >=0){
+                    fileIO.putIntegerToPref("2nd", first);
+                    if (second>=0) { // second has value, then move"first" to "2nd".
+                        fileIO.putIntegerToPref("3rd", second);
+                    }
+                }
+            } else { // second =< score < first
+                fileIO.putIntegerToPref("2nd", score);
+                if (second > 0){ // "2nd" has value, give to "3rd"
+                    fileIO.putIntegerToPref("3rd", second);
+                }
+            }
+        } else { // score < second
+            if (score > third ) { //third =< score < second
+                fileIO.putIntegerToPref("3rd",score);
+            }
+        }
+
+    }
+
     private void nullify() {
         // Set all variables to null. You will be recreating them in the
         // constructor.

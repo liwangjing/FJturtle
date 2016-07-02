@@ -8,8 +8,7 @@ import com.androidgame.jingfu.fjturtle.framework.Sound;
  * Created by handsomemark on 6/28/16.
  */
 public class Assets {
-    public static Image menu, fjad,fruit,snake;
-    public static Image button;
+    public static Image menu, fjad,fruit,snake,rankScreen;
     public static Sound click,giggle,eat;
     public static Music theme;
 
