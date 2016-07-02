@@ -17,4 +17,10 @@ public interface FileIO {
     public InputStream readAsset(String file) throws IOException;
 
     public SharedPreferences getSharedPref(); // SharedPreferences: Android interface letting us access & modify preference
+
+    public void putIntegerToPref(String key, int num);
+
+    public int getIntegerFromPref(String key, int defValue);
+
+    public void removeFromPref(String key);
 }

@@ -24,11 +24,13 @@ public class AndroidFileIO implements FileIO {
     Context context;
     AssetManager assets;
     String externalStoragePath;
+    SharedPreferences sharedPreferences;
 
     public AndroidFileIO(Context context) {
         this.context = context;
         this.assets = context.getAssets(); // get a assetManager from current context.
         this.externalStoragePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         /*
         * environment: provide access to environment variables, like storage statement, storage directory...
         * getExternalStorageDirectory() return a primary/external storage directory,needs permission.
@@ -56,7 +58,7 @@ public class AndroidFileIO implements FileIO {
 
     @Override
     public SharedPreferences getSharedPref() {
-        return PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences;
         /*
         * sharedPreferences is an interface for accessing and modifying preference data.
         *   for any particular sets of preferences, there is a single instance of this class shared by all clients.
@@ -64,5 +66,24 @@ public class AndroidFileIO implements FileIO {
         * PreferenceManager is a class that used for create preference hierarchies from activities or xml.
         * getDefaultSharedPreferences(context): gets a SharedPreference instance that points to the default file in the given context.
          */
+    }
+
+    @Override
+    public void putIntegerToPref(String key, int num){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, num);
+        editor.commit();
+    }
+
+    @Override
+    public int getIntegerFromPref(String key, int defValue){
+        return sharedPreferences.getInt(key, defValue);
+    }
+
+    @Override
+    public void removeFromPref(String key){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(key);
+        editor.commit();
     }
 }
