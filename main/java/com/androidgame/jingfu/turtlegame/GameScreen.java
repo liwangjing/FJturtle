@@ -129,7 +129,6 @@ public class GameScreen extends Screen {
         }
     }
 
-
     private void fillHexagon(int[] px, int[] py, Graphics g, int color) {
         Paint p = new Paint();
         p.setColor(color);
@@ -153,6 +152,7 @@ public class GameScreen extends Screen {
             }
         }
     }
+
     private void updateReady(List<TouchEvent> touchEvents){
         if (touchEvents.size()>0){
             state = GameState.RUNNING;
@@ -194,6 +194,7 @@ public class GameScreen extends Screen {
             }
         }
     }
+
     private void updatePause(List<TouchEvent> touchEvents) {
         int len = touchEvents.size();
         for (int i = 0; i < len; i++) {
@@ -202,7 +203,6 @@ public class GameScreen extends Screen {
                 if (inBounds(event, 0, (int) (0.15 * ((AndroidGame) game).landscapeHeight), (int)( ((AndroidGame) game).landscapeWidth *0.45),(int) (0.08 * ((AndroidGame) game).landscapeHeight) )  ) {
                     resume();
                 }
-
                 if (inBounds(event, 0, (int)(0.4 * ((AndroidGame) game).landscapeHeight), (int)( ((AndroidGame) game).landscapeWidth*0.4), (int) (0.08 * ((AndroidGame) game).landscapeHeight))) {
                     nullify();
                     goToMenu();
@@ -210,6 +210,7 @@ public class GameScreen extends Screen {
             }
         }
     }
+
     private void updateGameOver(float deltaTime){
         lastTime = lastTime + deltaTime;
         if (lastTime > 50) {
@@ -223,44 +224,43 @@ public class GameScreen extends Screen {
 
     private void drawWarmUpUI(){
         Graphics g = game.getGraphics();
-        paintFrame();
             for(int j = 0; j < leds.size();j++){
                 if(leds.get(j).getX() == ledsX[warmUpFlag] && leds.get(j).getY() == ledsY[warmUpFlag]){
                     leds.get(j).draw(g,Brightness.H);
                 }
             }
     }
+
     private void drawReadyUI() {
         Graphics g = game.getGraphics();
         mySnake.draw(g);
         fruit.draw(g); // draw fruit and snake, stay still, wait for game running.
         g.drawString("0", (int) (0.15 * ((AndroidGame) game).landscapeWidth), (int) (0.14 * ((AndroidGame) game).landscapeHeight), paint);
     }
+
     private void drawRunningUI() {
         Graphics g = game.getGraphics();
-        paintFrame();
         mySnake.snakeGetFruit(fruit);
         mySnake.draw(g);
         fruit.draw(g);
         g.drawString(""+mySnake.getNumOfFruits(), (int) (0.15 * ((AndroidGame) game).landscapeWidth), (int) (0.14 * ((AndroidGame) game).landscapeHeight), paint);
     }
+
     private void drawPauseUI() {
         Graphics g = game.getGraphics();
         g.drawARGB(155, 0, 0, 0);// Darken the screen
         g.drawString("Resume", (int) (0.3 * ((AndroidGame) game).landscapeWidth), (int) (0.23 * ((AndroidGame) game).landscapeHeight), paint2);// 0.3 0.23
         g.drawString("Menu", (int)(0.3*((AndroidGame) game).landscapeWidth), (int)(0.5 * ((AndroidGame) game).landscapeHeight), paint2); // 0.3 0.5
     }
+
     private void drawGameOverUI() {
         Graphics g = game.getGraphics();
-        paintFrame();
         mySnake.draw(g);
         g.drawString(""+mySnake.getNumOfFruits(), (int) (0.15 * ((AndroidGame) game).landscapeWidth), (int) (0.14 * ((AndroidGame) game).landscapeHeight), paint);
     }
 
-    private boolean inBounds(TouchEvent event, int x, int y, int width,
-                             int height) {
-        if (event.x > x && event.x < x + width - 1 && event.y > y
-                && event.y < y + height - 1)
+    private boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
+        if (event.x > x && event.x < x + width - 1 && event.y > y && event.y < y + height - 1)
             return true;
         else
             return false;
