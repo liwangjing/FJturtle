@@ -46,8 +46,11 @@ public class Snake {
 
     public void draw(Graphics g){
         if (!live){
-            if (ending > 13)return;
-            if (ending%2==0) {
+            if (ending > 13) {
+                ending = 0;
+                return;
+            }
+            if (ending % 4==0) {
 
                 for (int i=0; i<gameScreen.leds.size(); i++){
                     gameScreen.leds.get(i).draw(g);
