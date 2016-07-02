@@ -20,7 +20,14 @@ public class AndroidSound implements Sound {
 
     @Override
     public void play(float volume) {
-        soundPool.play(soundId, volume, volume, 0, 0, 1); //play(int soundID, float leftVolume, float rightVolume, int priority, int loop, float rate)
+        soundPool.play(soundId, volume, volume, 0, 0, 1.0f); //play(int soundID, float leftVolume, float rightVolume, int priority, int loop, float rate)
+        //int: loop mode (0 = no loop, -1 = loop forever)
+        // Play a sound from a sound ID.rate is playback rate播放速率
+    }
+
+    @Override
+    public void play(float volume, float playRate) {
+        soundPool.play(soundId, volume, volume, 0, 0, playRate); //play(int soundID, float leftVolume, float rightVolume, int priority, int loop, float rate)
         //int: loop mode (0 = no loop, -1 = loop forever)
         // Play a sound from a sound ID.rate is playback rate播放速率
     }

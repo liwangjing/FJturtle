@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.androidgame.jingfu.fjturtle.framework.Graphics;
 import com.androidgame.jingfu.fjturtle.framework.Screen;
+import com.androidgame.jingfu.fjturtle.framework.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +135,7 @@ public class Snake {
         x.remove(x.size() - 1);
         y.add(0, headY);
         y.remove(y.size() - 1);
-        Assets.click.play(0.5f);
+        playSoundBySpeed(Assets.click);
     }
 
     public  void determineDirection() {
@@ -204,10 +205,10 @@ public class Snake {
         if(f.getLive() && this.headX==f.getX() && this.headY==f.getY()) {
             f.setLive(false);
             this.numOfFruits++;
-            Assets.eat.play(0.5f);
             if (numOfFruits<=Integer.parseInt(PropertyManager.getProperty("exponential"))) {
                 snakeSpeed-=Math.sqrt(snakeSpeed);
             } else snakeSpeed-=Double.parseDouble(PropertyManager.getProperty("linearSpeed"));
+            playSoundBySpeed(Assets.eat);
             return true;
         }
         return false;
@@ -226,7 +227,15 @@ public class Snake {
     }
 
     public void setbL(boolean bl) {bL = bl;}
+
     public void setbR(boolean br) {bR = br;}
+
+    private void playSoundBySpeed ( Sound sound) {
+        float initSpeed = Float.parseFloat(PropertyManager.getProperty("snakeSpeed"));
+        if (initSpeed/snakeSpeed >2.0)
+            sound.play(0.5f, 2.0f);
+        else sound.play(0.5f, (float) (initSpeed/snakeSpeed));
+    }
 
     public void setHeadX(int headX) {this.headX = headX;}
     public void setHeadY(int headY) {this.headY = headY;}
