@@ -10,10 +10,6 @@ import com.androidgame.jingfu.fjturtle.framework.Graphics;
  */
 public class Led {
 
-    public enum Brightness {
-        H,M,L
-    }
-
     private int cx,cy;
     private int gameX, gameY;
     public static final int RADIUS= Integer.parseInt(PropertyManager.getProperty("ledRadius"));
@@ -25,7 +21,7 @@ public class Led {
         this.cy = cy;
         this.gameX = gameX;
         this.gameY = gameY;
-    }
+    }// cx cy are the coordinates of led in the screen, gameX gameY are coordinates of the game.
 
     public void draw(Graphics g) {//draw the outline of a led
         fillCircle(cx,cy,RADIUS,Color.RED,g);
@@ -48,5 +44,13 @@ public class Led {
         p.setColor(color);
         p.setStyle(Paint.Style.FILL);
         g.drawCircle(cx,cy,radius,p);
+    }
+
+    public int getX(){
+        return gameX;
+    }
+
+    public int getY() {
+        return gameY;
     }
 }

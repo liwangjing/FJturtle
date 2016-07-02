@@ -66,7 +66,7 @@ public class LoadingScreen extends Screen {
                 count++;
             }
         } else if (count == 4) {
-            if (lastingTime > DISPLAYDURATION-10) {
+            if (lastingTime > DISPLAYDURATION+10) {
                 snakeX = fruitX;
                 count++;
                 lastingTime = 0;
