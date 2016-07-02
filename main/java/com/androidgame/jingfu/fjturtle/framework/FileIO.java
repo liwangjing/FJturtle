@@ -1,6 +1,8 @@
 package com.androidgame.jingfu.fjturtle.framework;
 
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,6 +17,8 @@ public interface FileIO {
     public OutputStream writeFile(String file) throws IOException; //input filename, write this file, return the
 
     public InputStream readAsset(String file) throws IOException;
+
+    public AssetManager getAssets() ;
 
     public SharedPreferences getSharedPref(); // SharedPreferences: Android interface letting us access & modify preference
 

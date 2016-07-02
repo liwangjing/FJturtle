@@ -1,7 +1,10 @@
 package com.androidgame.jingfu.turtlegame;
 
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.util.Log;
 
 import com.androidgame.jingfu.fjturtle.framework.FileIO;
@@ -29,7 +32,11 @@ public class RankScreen extends Screen {
         this.first = fileIO.getIntegerFromPref("1st", -1);
         this.second = fileIO.getIntegerFromPref("2nd", -2);
         this.third = fileIO.getIntegerFromPref("3rd", -3);
+        //Typeface font = Typeface.createFromAsset(fileIO.getAssets(), "3Dumb.ttf");// 2Dumb,StreetWiseBuddy
         this.paint = new Paint();
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          //  paint.setFontFeatureSettings(String.valueOf(font));
+        //}
         paint.setTextSize(80);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setAntiAlias(true);
