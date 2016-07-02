@@ -56,6 +56,10 @@ public class AndroidFileIO implements FileIO {
         // ACCESS_STREAMING: read sequentially with an occasional forward seek.
     }
 
+    public AssetManager getAssets(){
+        return this.assets;
+    }
+
     @Override
     public SharedPreferences getSharedPref() {
         return sharedPreferences;
