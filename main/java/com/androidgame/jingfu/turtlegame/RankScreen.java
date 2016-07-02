@@ -27,7 +27,6 @@ public class RankScreen extends Screen {
 
     public RankScreen(Game game) {
         super(game);
-        Assets.rankScreen = game.getGraphics().newImage("rankscreen.png", Graphics.ImageFormat.ARGB8888);
         this.fileIO = game.getFileIO();
         this.first = fileIO.getIntegerFromPref("1st", -1);
         this.second = fileIO.getIntegerFromPref("2nd", -2);
@@ -44,13 +43,11 @@ public class RankScreen extends Screen {
     }
     @Override
     public void update(float deltaTime) {
-        if (first >= 0 && second >= 0 && third >= 0) {
-            flag = 3; //rank has 3 scores.
-        } else if (first >= 0 && second >= 0){
-            flag = 2;
-        } else if (first >= 0) {
-            flag = 1;
-        } else {  flag = 0; }
+        // update the number flag
+        flag = 0;
+        if (first >= 0) flag++;
+        if (second >= 0) flag++;
+        if (third >= 0) flag++;
     }
 
     @Override

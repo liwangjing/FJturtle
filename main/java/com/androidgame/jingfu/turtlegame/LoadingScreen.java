@@ -39,6 +39,7 @@ public class LoadingScreen extends Screen {
         Assets.fruit = g.newImage("fruit.png", Graphics.ImageFormat.RGB565);
         Assets.snake = g.newImage("snake.png", Graphics.ImageFormat.RGB565);
         Assets.menu = g.newImage("menu.png",Graphics.ImageFormat.ARGB8888);
+        Assets.rankScreen = game.getGraphics().newImage("rankscreen.png", Graphics.ImageFormat.ARGB8888);
         this.fruitW = Assets.fruit.getWidth(); //90
         this.fruitH = Assets.fruit.getHeight(); //90
         this.offsetX = fruitW ; //90
@@ -50,7 +51,6 @@ public class LoadingScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
-
         lastingTime += deltaTime;
         if (count < 4) {
             if (lastingTime > DISPLAYDURATION-20) {
