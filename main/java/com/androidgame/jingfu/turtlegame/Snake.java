@@ -27,6 +27,7 @@ public class Snake {
     Direction[] dirs = Direction.values();
     private int rn ;
     private boolean live = true;
+    private boolean stopped = false;
     private int numOfFruits;
     private static int ending = 1;
     public int L=0,R=0;
@@ -52,7 +53,6 @@ public class Snake {
                 return;
             }
             if (ending % 4==0) {
-
                 for (int i=0; i<gameScreen.leds.size(); i++){
                     gameScreen.leds.get(i).draw(g);
                 }
@@ -243,10 +243,19 @@ public class Snake {
     public void setRn(int rn) {this.rn = rn; }
     public int getRn() {return rn; }
 
+    public boolean isStopped() {
+        return stopped;
+    }
+
+    public void setStopped(boolean stopped) {
+        this.stopped = stopped;
+    }
+
     private class MoveThread implements Runnable {//inner class
         private int lRn;
         public void run() {
             while (Snake.this.getLive()){
+                if (Snake.this.stopped) continue;
                 double tempSpeed = Snake.this.getSnakeSpeed();
                 if (Math.abs(Snake.this.L-Snake.this.R)>=3) {
                     if (Snake.this.L>Snake.this.R) {

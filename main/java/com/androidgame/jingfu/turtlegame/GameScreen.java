@@ -37,7 +37,7 @@ public class GameScreen extends Screen {
     int[] ledsX = {1,2,3,4,5,6,7,8,9,9,9,9,9,8,7,6,5,4,3,2,1,1,1,1,1};
     int[] ledsY = {5,6,7,8,9,9,9,9,9,8,7,6,5,4,3,2,1,1,1,1,1,2,3,4,5};
 
-    Paint paint,paint2;
+    Paint scorepaint,paint2;
 
 
     public GameScreen(Game game) {
@@ -52,14 +52,14 @@ public class GameScreen extends Screen {
                 leds.add(new Led((380+(j-1)*65),(210-(j-1)*37+(i-1)*75),i,j));
             }
         } // obtain led instances in constructor
-        this.paint = new Paint();
-        paint.setTextSize(70);
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setAntiAlias(true);
-        paint.setColor(Color.WHITE);
+        this.scorepaint = new Paint();
+        scorepaint.setTextSize(70);
+        scorepaint.setTextAlign(Paint.Align.CENTER);
+        scorepaint.setAntiAlias(true);
+        scorepaint.setColor(Color.WHITE);
         this.paint2 = new Paint();
-        paint2.setTextSize(100);
-        paint2.setTextAlign(Paint.Align.CENTER);
+        paint2.setTextSize(90);
+        paint2.setTextAlign(Paint.Align.LEFT);
         paint2.setAntiAlias(true);
         paint2.setColor(Color.WHITE);
     }
@@ -90,6 +90,11 @@ public class GameScreen extends Screen {
     @Override
     public void paint(float deltaTime) {
         paintFrame();
+        Graphics g = game.getGraphics();
+        if (state != GameState.WARMUP) {
+            mySnake.draw(g);
+            fruit.draw(g);
+        }
         if (state == GameState.WARMUP){
             drawWarmUpUI();
         }
@@ -148,6 +153,7 @@ public class GameScreen extends Screen {
             warmUpFlag++;
             lastTime = 0;
             if (warmUpFlag > 24 ) {
+                warmUpFlag = 0;
                 state = GameState.READY;
             }
         }
@@ -172,7 +178,6 @@ public class GameScreen extends Screen {
                         mySnake.setbL(true);
                         mySnake.L++;
                     }
-
                     if (inBounds(event, ((AndroidGame) game).landscapeWidth / 2, 0, ((AndroidGame) game).landscapeWidth / 2, ((AndroidGame) game).landscapeHeight)) {
                         //snake turn right
                         mySnake.setbR(true);
@@ -180,18 +185,20 @@ public class GameScreen extends Screen {
                     }
                     mySnake.determineDirection();
                 }
-
                 if (event.type == TouchEvent.TOUCH_UP) {
                     if (inBounds(event, 0, 0, ((AndroidGame) game).landscapeWidth / 2, ((AndroidGame) game).landscapeHeight)) {
                         mySnake.setbL(false);
                     }
-
                     if (inBounds(event, ((AndroidGame) game).landscapeWidth / 2, 0, ((AndroidGame) game).landscapeWidth / 2, ((AndroidGame) game).landscapeHeight)) {
                         //snake turn right
                         mySnake.setbR(false);
                     }
                 }
             }
+            if (length > 0 && mySnake.isStopped()) {
+                mySnake.setStopped(false);
+            }
+            mySnake.snakeGetFruit(fruit);
         }
     }
 
@@ -200,10 +207,10 @@ public class GameScreen extends Screen {
         for (int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if (event.type == TouchEvent.TOUCH_UP) {
-                if (inBounds(event, 0, (int) (0.15 * ((AndroidGame) game).landscapeHeight), (int)( ((AndroidGame) game).landscapeWidth *0.45),(int) (0.08 * ((AndroidGame) game).landscapeHeight) )  ) {
+                if (inBounds(event, 0, (int) (0.4 * ((AndroidGame) game).landscapeHeight)-90, (int)( ((AndroidGame) game).landscapeWidth *0.45),90 )  ) {
                     resume();
                 }
-                if (inBounds(event, 0, (int)(0.4 * ((AndroidGame) game).landscapeHeight), (int)( ((AndroidGame) game).landscapeWidth*0.4), (int) (0.08 * ((AndroidGame) game).landscapeHeight))) {
+                if (inBounds(event, 0, (int)(0.7 * ((AndroidGame) game).landscapeHeight)-90, (int)( ((AndroidGame) game).landscapeWidth*0.4), 90)) {
                     nullify();
                     goToMenu();
                 }
@@ -233,30 +240,24 @@ public class GameScreen extends Screen {
 
     private void drawReadyUI() {
         Graphics g = game.getGraphics();
-        mySnake.draw(g);
-        fruit.draw(g); // draw fruit and snake, stay still, wait for game running.
-        g.drawString("0", (int) (0.15 * ((AndroidGame) game).landscapeWidth), (int) (0.14 * ((AndroidGame) game).landscapeHeight), paint);
+        g.drawString("0", (int) (0.15 * ((AndroidGame) game).landscapeWidth), (int) (0.14 * ((AndroidGame) game).landscapeHeight), scorepaint);
     }
 
     private void drawRunningUI() {
         Graphics g = game.getGraphics();
-        mySnake.snakeGetFruit(fruit);
-        mySnake.draw(g);
-        fruit.draw(g);
-        g.drawString(""+mySnake.getNumOfFruits(), (int) (0.15 * ((AndroidGame) game).landscapeWidth), (int) (0.14 * ((AndroidGame) game).landscapeHeight), paint);
+        g.drawString(""+mySnake.getNumOfFruits(), (int) (0.15 * ((AndroidGame) game).landscapeWidth), (int) (0.14 * ((AndroidGame) game).landscapeHeight), scorepaint);
     }
 
     private void drawPauseUI() {
         Graphics g = game.getGraphics();
         g.drawARGB(155, 0, 0, 0);// Darken the screen
-        g.drawString("Resume", (int) (0.3 * ((AndroidGame) game).landscapeWidth), (int) (0.23 * ((AndroidGame) game).landscapeHeight), paint2);// 0.3 0.23
-        g.drawString("Menu", (int)(0.3*((AndroidGame) game).landscapeWidth), (int)(0.5 * ((AndroidGame) game).landscapeHeight), paint2); // 0.3 0.5
+        g.drawString("Resume", (int) (0.0 * ((AndroidGame) game).landscapeWidth), (int) (0.40 * ((AndroidGame) game).landscapeHeight), paint2);// 0.5 0.23
+        g.drawString("Menu", (int)(0.0*((AndroidGame) game).landscapeWidth), (int)(0.70 * ((AndroidGame) game).landscapeHeight), paint2); // 0.5 0.5
     }
 
     private void drawGameOverUI() {
         Graphics g = game.getGraphics();
-        mySnake.draw(g);
-        g.drawString(""+mySnake.getNumOfFruits(), (int) (0.15 * ((AndroidGame) game).landscapeWidth), (int) (0.14 * ((AndroidGame) game).landscapeHeight), paint);
+        g.drawString(""+mySnake.getNumOfFruits(), (int) (0.15 * ((AndroidGame) game).landscapeWidth), (int) (0.14 * ((AndroidGame) game).landscapeHeight), scorepaint);
     }
 
     private boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
@@ -268,8 +269,9 @@ public class GameScreen extends Screen {
 
     @Override
     public void pause() {
-        if (state == GameState.RUNNING) {
+        if (state == GameState.RUNNING || state == GameState.READY) {
             state = GameState.PAUSE;
+            mySnake.setStopped(true);
         }
     }
 
@@ -312,11 +314,12 @@ public class GameScreen extends Screen {
     private void nullify() {
         // Set all variables to null. You will be recreating them in the
         // constructor.
-        paint = null;
+        scorepaint = null;
         paint2 = null;
         leds=null;
         System.gc();// Call garbage collector to clean up memory.
     }
+    
     private void goToMenu () {
         game.setScreen(new MenuScreen(game));
     }
