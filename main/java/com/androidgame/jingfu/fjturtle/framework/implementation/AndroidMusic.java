@@ -68,7 +68,7 @@ public class AndroidMusic implements Music, OnCompletionListener, OnPreparedList
 
     @Override
     public void setLooping(boolean looping) {
-        mediaPlayer.setLooping(isLooping());
+        mediaPlayer.setLooping(looping);
     }
 
     @Override
