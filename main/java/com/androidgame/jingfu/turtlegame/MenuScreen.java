@@ -17,10 +17,19 @@ import java.util.List;
  */
 public class MenuScreen extends Screen {
 
+    private GameScreen gameScreen;
+
     public MenuScreen (Game game){
         super(game);
         game.getInput().getTouchEvents();//clear touch events
     }
+
+    public MenuScreen (Game game, GameScreen gameScreen){
+        super(game);
+        game.getInput().getTouchEvents();//clear touch events
+        this.gameScreen = gameScreen;
+    }
+
     @Override
     public void update(float deltaTime) {
         if (game.getInput().getPointerCounter() == 0) {
@@ -31,7 +40,9 @@ public class MenuScreen extends Screen {
                 if (event.type == Input.TouchEvent.TOUCH_UP && inBounds(event, ((AndroidGame) game).landscapeWidth * 104 / Assets.menu.getWidth(), ((AndroidGame) game).landscapeHeight * 680 / Assets.menu.getHeight(),
                         ((AndroidGame) game).landscapeWidth * 468 / Assets.menu.getWidth(), ((AndroidGame) game).landscapeHeight * 212 / Assets.menu.getHeight()) ) {
                     // once find the user has lifted his finger from the play button area, start game screen
-                    game.setScreen(new GameScreen(game));
+                    if (gameScreen != null)
+                        game.setScreen(gameScreen);
+                    else game.setScreen(new GameScreen(game));
                     break;// since the touchEvents are cleared again in setScreen(), so don't traverse the old events list. Otherwise, the program will break down.
                 }
                 else if (event.type == Input.TouchEvent.TOUCH_UP && inBounds(event, ((AndroidGame) game).landscapeWidth * 108 / Assets.menu.getWidth(), ((AndroidGame) game).landscapeHeight * 450 / Assets.menu.getHeight(),
