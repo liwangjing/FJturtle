@@ -1,20 +1,13 @@
 package com.androidgame.jingfu.turtlegame;
 
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.os.Build;
-import android.util.Log;
-
 import com.androidgame.jingfu.fjturtle.framework.FileIO;
 import com.androidgame.jingfu.fjturtle.framework.Game;
 import com.androidgame.jingfu.fjturtle.framework.Graphics;
-import com.androidgame.jingfu.fjturtle.framework.Input.TouchEvent;
 import com.androidgame.jingfu.fjturtle.framework.Screen;
 import com.androidgame.jingfu.fjturtle.framework.implementation.AndroidGame;
 
-import java.util.List;
 
 /**
  * Created by jing on 2016/7/2.
@@ -31,11 +24,7 @@ public class RankScreen extends Screen {
         this.first = fileIO.getIntegerFromPref("1st", -1);
         this.second = fileIO.getIntegerFromPref("2nd", -2);
         this.third = fileIO.getIntegerFromPref("3rd", -3);
-        //Typeface font = Typeface.createFromAsset(fileIO.getAssets(), "3Dumb.ttf");// 2Dumb,StreetWiseBuddy
         this.paint = new Paint();
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-          //  paint.setFontFeatureSettings(String.valueOf(font));
-        //}
         paint.setTextSize(80);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setAntiAlias(true);

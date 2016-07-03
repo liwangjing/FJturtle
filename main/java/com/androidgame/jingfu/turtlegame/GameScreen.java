@@ -174,12 +174,10 @@ public class GameScreen extends Screen {
                 TouchEvent event = touchEvents.get(i);
                 if (event.type == TouchEvent.TOUCH_DOWN) {
                     if (inBounds(event, 0, 0, ((AndroidGame) game).landscapeWidth / 2, ((AndroidGame) game).landscapeHeight)) {
-                        // snake turn left
                         mySnake.setbL(true);
                         mySnake.L++;
                     }
                     if (inBounds(event, ((AndroidGame) game).landscapeWidth / 2, 0, ((AndroidGame) game).landscapeWidth / 2, ((AndroidGame) game).landscapeHeight)) {
-                        //snake turn right
                         mySnake.setbR(true);
                         mySnake.R++;
                     }
@@ -190,7 +188,6 @@ public class GameScreen extends Screen {
                         mySnake.setbL(false);
                     }
                     if (inBounds(event, ((AndroidGame) game).landscapeWidth / 2, 0, ((AndroidGame) game).landscapeWidth / 2, ((AndroidGame) game).landscapeHeight)) {
-                        //snake turn right
                         mySnake.setbR(false);
                     }
                 }
@@ -211,7 +208,6 @@ public class GameScreen extends Screen {
                     resume();
                 }
                 if (inBounds(event, 0, (int)(0.7 * ((AndroidGame) game).landscapeHeight)-90, (int)( ((AndroidGame) game).landscapeWidth*0.4), 90)) {
-                    nullify();
                     goToMenu();
                 }
             }
@@ -283,10 +279,12 @@ public class GameScreen extends Screen {
     }
 
     private void saveScore(int score){
+        if (score <= 0) return; // only save score that is higher than 0.
         FileIO fileIO = game.getFileIO();
         int first = fileIO.getIntegerFromPref("1st", -1);
         int second = fileIO.getIntegerFromPref("2nd", -2);
         int third = fileIO.getIntegerFromPref("3rd", -3);
+        if (score == first || score == second || score == third) return; // discard duplicate score.
 
         if (score >= second){
             if (score >= first ){ //first has value and score higher than first
@@ -308,7 +306,6 @@ public class GameScreen extends Screen {
                 fileIO.putIntegerToPref("3rd",score);
             }
         }
-
     }
 
     private void nullify() {
@@ -321,7 +318,7 @@ public class GameScreen extends Screen {
     }
     
     private void goToMenu () {
-        game.setScreen(new MenuScreen(game));
+        game.setScreen(new MenuScreen(game,this));
     }
 
     @Override
